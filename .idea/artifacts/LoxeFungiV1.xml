@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="LoxeFungiV1">
+    <output-path>$USER_HOME$/OSBot/Scripts</output-path>
+    <root id="archive" name="LoxeFungiV1.jar">
+      <element id="module-output" name="LoxeFungus" />
+      <element id="file-copy" path="$USER_HOME$/Desktop/OSBot.jar" />
+    </root>
+  </artifact>
+</component>

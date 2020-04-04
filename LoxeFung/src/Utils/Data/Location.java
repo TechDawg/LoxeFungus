@@ -13,7 +13,7 @@ public enum Location {
     CLAN_WARS(new Area(3384, 3163, 3391, 3155)),
     CLAN_WARS_BANK(new Area(3368, 3170, 3370, 3171)),
     INSIDE_CLAN_WARS(new Area(3320, 4751, 3327, 4759)),
-    INSIDE_CLAN_WAR(new Area(3327, 4751, 33230, 4753));
+    INSIDE_CLAN_WAR(new Area(3327, 4751, 3330, 4753));
     private String name;
     private Area area;
 
