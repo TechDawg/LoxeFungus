@@ -61,6 +61,7 @@ public class StateHandler {
         TELEPORTING_TO_CLANWARS,
         TELEPORTING_TO_SLAVE,
         HOPPING_WORLD,
+        USING_PORTAL,
     }
 
     private State getState() {
@@ -101,7 +102,10 @@ public class StateHandler {
             }
             return State.BANKING;
         }
-        if (api.objects.closest(26645) != null && !INSIDE_CLAN_WAR.getArea().contains(api.myPlayer().getPosition())) {
+        if (PORTAL_AREA.getArea().contains(api.myPlayer())){
+            return State.USING_PORTAL;
+        }
+        if (api.objects.closest(26645) != null && INSIDE_CLAN_WAR.getArea().contains(api.myPlayer().getPosition())) {
             return State.WALKING_TO_PORTAL;
         }
         if (CLAN_WARS_BANK.getArea().contains(api.myPlayer())) {
@@ -167,6 +171,9 @@ public class StateHandler {
                     if (!api.getInventory().contains(salveTab)) {
                         api.getBank().withdraw(salveTab, 50);
                     }
+                    if (api.getInventory().contains(mats)) {
+                        api.getBank().depositAll(mats);
+                    }
                     if (!api.getEquipment().isWearingItem(EquipmentSlot.RING)) {
                         api.getBank().withdraw("Ring of dueling(8)", 1);
                         api.getBank().close();
@@ -175,17 +182,18 @@ public class StateHandler {
                     break;
                 case WALKING_TO_PORTAL:
                     api.log("Walking to portal");
-                    api.getWalking().walk(new Area(3353, 3163, 3352, 3164));
+                    api.getWalking().webWalk(PORTAL_AREA.getArea());
+                    break;
+                case USING_PORTAL:
                     RS2Object portal = api.objects.closest(26645);
                     portal.interact("Enter");
-                    new ConditionalSleep(20000) {
+                    new ConditionalSleep(3000) {
                         @Override
                         public boolean condition() {
 //                            return api.getInventory().getAmount(mats) == flaxInvAmountt;
                             return INSIDE_CLAN_WARS.getArea().contains(api.myPlayer());
                         }
                     }.sleep();
-                    break;
                 case TELEPORTING_TO_SLAVE:
                     api.log("Teleporting To Salve");
                     api.getInventory().interact("Break", salveTab);
@@ -207,18 +215,20 @@ public class StateHandler {
                     break;
                 case WALKING_TO_FUNGUS:
                     api.log("Walking to Fungus");
-                    api.getWalking().webWalk(FUNGUS_AREA.getArea());
+                    api.getWalking().webWalk(FUNGUS_AREA.getArea().getCentralPosition());
                 case WALKING_TO_TILE:
+
                     api.log("Walking to tile");
-                    WalkingEvent tile = new WalkingEvent(new Position(3421, 3439, 0));
-                    tile.setOperateCamera(false);
-                    tile.isOperateCamera();
-                    tile.setMinDistanceThreshold(0);
-                    api.execute(tile);
+//                    WalkingEvent tile = new WalkingEvent(new Position(3421, 3439, 0));
+//                    tile.setOperateCamera(false);
+//                    tile.isOperateCamera();
+//                    tile.setMinDistanceThreshold(0);
+//                    api.execute(tile);
+                    api.getWalking().walk(new Position(3421, 3439, 0));
                     MethodProvider.random(100);
-                    if (tile.hasFailed()) {
-                        api.execute(tile);
-                    }
+//                    if (tile.hasFailed()) {
+//                        api.execute(tile);
+//                    }
 //                    if (!BEST_TILE.getArea().contains(api.myPlayer()) && !api.myPlayer().isMoving()) {
 //                        api.getWalking().walk(BEST_TILE.getArea());
 //                    }

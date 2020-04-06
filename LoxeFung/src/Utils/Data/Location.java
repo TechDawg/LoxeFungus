@@ -5,7 +5,7 @@ import org.osbot.rs07.api.map.Area;
 public enum Location {
     BEST_TILE(new Area(3421, 3439, 3421, 3439)),
     SALVE_TELEPORT(new Area(3429, 3458, 3436, 3463)),
-    FUNGUS_AREA(new Area(3419, 3436, 3424, 3440)),
+    FUNGUS_AREA(new Area(3420, 3438, 3422, 3440)),
     BEST_SPOT(new Area(3420, 3438, 3422, 3438)),
     SALVE_AREA(new Area(3410, 3420, 3455, 3455)),
     GATE_SALVE(new Area(3443, 3457, 3444, 3457)),
@@ -13,7 +13,8 @@ public enum Location {
     CLAN_WARS(new Area(3384, 3163, 3391, 3155)),
     CLAN_WARS_BANK(new Area(3368, 3170, 3370, 3171)),
     INSIDE_CLAN_WARS(new Area(3320, 4751, 3327, 4759)),
-    INSIDE_CLAN_WAR(new Area(3327, 4751, 3330, 4753));
+    INSIDE_CLAN_WAR(new Area(3327, 4751, 3330, 4753)),
+    PORTAL_AREA(new Area(3353, 3163, 3352, 3164));
     private String name;
     private Area area;
 
